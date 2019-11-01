@@ -1,0 +1,36 @@
+{
+    "id": 206,
+    "name": "A NEW SCENE IS BORN",
+    "type": "com.fibaro.luaScene",
+    "categories": [
+        "other"
+    ],
+    "roomID": 305,
+    "iconID": 1,
+    "runConfig": "TRIGGER_AND_MANUAL",
+    "alexaProhibited": true,
+    "autostart": false,
+    "protectedByPIN": false,
+    "killable": false,
+    "killOtherInstances": false,
+    "maxRunningInstances": 4,
+    "runningInstances": 0,
+    "instances": [],
+    "runningManualInstances": 0,
+    "visible": false,
+    "isLua": true,
+    "properties": "",
+    "triggers": {
+        "properties": [],
+        "globals": [],
+        "events": [],
+        "weather": []
+    },
+    "actions": {
+        "devices": [],
+        "scenes": [],
+        "groups": []
+    },
+    "sortOrder": 427,
+    "lua": "--[[\n%% properties\n%% globals\n--]]\n\n--start here"
+}

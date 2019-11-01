@@ -1,0 +1,80 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Dump Expanded",
+            "type": "shell",
+            "command": "hc2UploadScene",
+            "args": [
+                "-d",
+                "-e",
+                "${workspaceRoot}/",
+                "${file}"
+            ],
+            "problemMatcher": [
+                "$vsls"
+            ]
+        },
+        {
+            "label": "Upload",
+            "type": "shell",
+            "command": "hc2UploadScene",
+            "args": [
+                "-e",
+                "${workspaceRoot}/",
+                "${file}"
+            ],
+            "problemMatcher": [
+                "$vsls"
+            ], 
+            "presentation": {
+              "reveal": "never"
+            }
+        },
+        {
+            "label": "Start",
+            "type": "shell",
+            "command": "hc2SceneInteract",
+            "args": [
+                "-a",
+                "start",
+                "-f",
+                "${file}"
+            ],
+            "problemMatcher": [
+                "$vsls"
+            ], 
+            "presentation": {
+              "reveal": "never"
+            }
+        },
+        {
+            "label": "Tail",
+            "type": "shell",
+            "command": "hc2SceneInteract",
+            "args": [
+                "-g",
+                "--tail",
+                "-f",
+                "${file}"
+            ],
+            "problemMatcher": [
+                "$vsls"
+            ], 
+            "presentation": {
+              "reveal": "always"
+            }
+        },
+        {
+          "label": "Upload, Start, Tail",
+          "dependsOrder": "sequence",
+          "dependsOn": ["Upload", "Start", "Tail"],
+          "problemMatcher": [
+              "$vsls"
+          ], 
+          "presentation": {
+            "reveal": "always"
+          }
+        }
+    ]
+}

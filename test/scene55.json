@@ -1,0 +1,36 @@
+{
+  "id": 55,
+  "name": "PressST_VD_Button",
+  "type": "com.fibaro.luaScene",
+  "categories": [
+    "other"
+  ],
+  "roomID": 0,
+  "iconID": 6,
+  "runConfig": "MANUAL_ONLY",
+  "alexaProhibited": true,
+  "autostart": false,
+  "protectedByPIN": false,
+  "killable": true,
+  "killOtherInstances": false,
+  "maxRunningInstances": 2,
+  "runningInstances": 0,
+  "instances": [],
+  "runningManualInstances": 0,
+  "visible": true,
+  "isLua": true,
+  "properties": "",
+  "triggers": {
+    "properties": [],
+    "globals": [],
+    "events": [],
+    "weather": []
+  },
+  "actions": {
+    "devices": [],
+    "scenes": [],
+    "groups": []
+  },
+  "sortOrder": 151,
+  "lua": "--[[\n%% properties\n%% events\n%% globals\n--]]\n\nlocal WohnzimmerBoseID = 158;\n\n\nDebug = function ( color, message )\n  fibaro:debug(string.format('<%s style=\"color:%s;\">%s', \"span\", color, message, \"span\"))\nend\n\nlocal startSource = fibaro:getSourceTrigger();\nif ( not ( startSource[\"type\"] == \"other\")) then return end\n\nfibaro:call(WohnzimmerBoseID, \"pressButton\", \"8\" ); -- PRESET_1\n--[[ FIBARO_GIT_HOOK - DO NOT CHANGE AS IT WILL BE DISCARDED\n@sceneID=55\n@name=\"PressST_VD_Button\"\n@roomID=0\n@autostart=false\n@runConfig=MANUAL_ONLY\n@maxRunningInstance=2\n@type=\"com.fibaro.luaScene\"\n@isLua=true\n--]]"
+}

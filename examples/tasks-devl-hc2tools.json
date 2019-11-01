@@ -1,0 +1,73 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Install hc2UploadScene",
+            "type": "shell",
+            "command": "go",
+            "args": [
+                "install",
+                "./cmd/hc2UploadScene"
+            ],
+            "options": {
+                "cwd": "${workspaceRoot}/"
+            },
+            "group": "build",
+            "presentation": {
+                "reveal": "silent"
+            },
+            "problemMatcher": [
+                "$go"
+            ]
+        },
+        {
+            "label": "Install hc2DownloadScene",
+            "type": "shell",
+            "command": "go",
+            "args": [
+                "install",
+                "./cmd/hc2DownloadScene"
+            ],
+            "options": {
+                "cwd": "${workspaceRoot}/"
+            },
+            "group": "build",
+            "presentation": {
+                "reveal": "silent"
+            },
+            "problemMatcher": [
+                "$go"
+            ]
+        },
+        {
+            "label": "Install hc2SceneInteract",
+            "type": "shell",
+            "command": "go",
+            "args": [
+                "install",
+                "./cmd/hc2SceneInteract"
+            ],
+            "options": {
+                "cwd": "${workspaceRoot}/"
+            },
+            "group": "build",
+            "presentation": {
+                "reveal": "silent"
+            },
+            "problemMatcher": [
+                "$go"
+            ]
+        },
+        {
+          "label": "Install all",
+          "dependsOrder": "sequence",
+          "dependsOn": ["Install hc2UploadScene", "Install hc2DownloadScene", "Install hc2SceneInteract"],
+          "problemMatcher": [
+            "$go"
+          ], 
+          "presentation": {
+            "reveal": "silent"
+          }
+        }
+    ]
+}

@@ -1,0 +1,15 @@
+{
+    "id": 5,
+    "name": "Schlafzimmer",
+    "sectionID": 4,
+    "icon": "room_sypialnia2",
+    "defaultSensors": {
+        "temperature": 543,
+        "humidity": 0,
+        "light": 544
+    },
+    "defaultThermostat": 0,
+    "created": 1556403295,
+    "modified": 1556403295,
+    "sortOrder": 1
+}

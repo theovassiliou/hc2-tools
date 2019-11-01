@@ -1,0 +1,20 @@
+{
+	// A snippet for the FIBARO_GIT_HOOK header 
+	"FIBARO_GIT_HOOK": {
+		"scope": "lua",
+		"prefix": "git_hook",
+		"body": [
+			"--[[ FIBARO_GIT_HOOK - DO NOT CHANGE AS IT WILL BE DISCARDED", 
+				"@sceneID=-1",
+				"@name=\"$1\"",
+				"@roomID=-1",
+				"@autostart=false",
+				"@runConfig=TRIGGER_AND_MANUAL",
+				"@maxRunningInstance=2",
+				"@type=\"com.fibaro.luaScene\"",
+				"@isLua=true",
+				"--]]"
+		],
+		"description": "FIBARO_GIT_HOOK"
+	}
+}
