@@ -62,6 +62,16 @@ It is a powerful tool intended to create a round-trip workflow. Plays together w
 
 `hc2UploadScene -s 55 ExampleScene.lua` uploads the file `ExampleScene.lua` and uses the sceneID `55`. If the sceneID does not exists `hc2UploadScene` returns with error and exit code `1`.
 
+## Library expansion
+
+hc2Uploads enables the support of lua `require()` statements by expanding the library referenced in the `require()`statement inline in the file, before uploading
+
+- `--expand-path` defines the search-path-root where to search for the included libraries.
+  For example
+    using `require('lib/Debug')` in the lua scene requires the source code inlined in the uploaded lua script.
+    With `--expand-path ~/hc2/` the `hc2UploadScene`-tool will look for the required scene at `~/hc2/lib/Debug.lua`
+- `--dont-expand` prohibits the expansion, and keeps the lua script as it is.
+
 ## config-file
 
 The file has the following structure
