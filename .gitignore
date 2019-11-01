@@ -1,0 +1,8 @@
+configs/config.json
+.vscode/launch.json
+vendor/*
+build/*
+
+hc2DownloadScene
+hc2SceneInteract
+hc2UploadScene
