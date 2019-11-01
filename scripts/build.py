@@ -69,7 +69,7 @@ supported_packages = {
     "freebsd": [ "tar" ]
 }
 
-next_version = '0.9.2'
+next_version = '1.0.0'
 
 ################
 #### hc2-tools Functions
