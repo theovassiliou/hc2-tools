@@ -32,7 +32,7 @@ VER_TO_INT:=awk '{split(substr($$0, match ($$0, /[0-9\.]+/)), a, "."); print a[1
 check-go-version: 
 	@if test $(shell go version | $(VER_TO_INT) ) -lt \
                  $(shell echo "$(GO_VERSION_REQUIRED)" | $(VER_TO_INT) ); \
-                 then printf "go version $(GO_VERSION_REQUIRED)+ required, found: "; $(GO) version; exit 1; fi
+                 then printf "go version $(GO_VERSION_REQUIRED)+ required, found: "; go version; exit 1; fi
 
 
 
