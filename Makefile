@@ -1,3 +1,5 @@
+GO_VERSION_REQUIRED:=1.13
+
 # Inspired by github.com/influxdata/telegraf
 ifeq ($(OS), Windows_NT)
 	VERSION := $(shell git describe --exact-match --tags 2>nil)
@@ -21,6 +23,19 @@ else
 PATH := $(subst :,/bin:,$(shell go env GOPATH))/bin:$(PATH)
 endif
 
+# --Inspired by https://github.com/istio/istio/blob/master/Makefile.core.mk
+
+# Parse out the x.y or x.y.z version and output a single value x*10000+y*100+z (e.g., 1.9 is 10900)
+# that allows the three components to be checked in a single comparison.
+VER_TO_INT:=awk '{split(substr($$0, match ($$0, /[0-9\.]+/)), a, "."); print a[1]*10000+a[2]*100+a[3]}'
+
+check-go-version: 
+	@if test $(shell go version | $(VER_TO_INT) ) -lt \
+                 $(shell echo "$(GO_VERSION_REQUIRED)" | $(VER_TO_INT) ); \
+                 then printf "go version $(GO_VERSION_REQUIRED)+ required, found: "; $(GO) version; exit 1; fi
+
+
+
 LDFLAGS := $(LDFLAGS) -X main.commit=$(COMMIT) -X main.branch=$(BRANCH)
 ifdef VERSION
 	LDFLAGS += -X main.version=$(VERSION)
@@ -32,7 +47,7 @@ all:
 	@$(MAKE) --no-print-directory hc2
 
 .PHONY: deps
-deps:
+deps: check-go-version
 	go mod vendor
 
 .PHONY: hc2
