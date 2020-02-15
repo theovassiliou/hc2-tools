@@ -12,7 +12,7 @@ import (
 
 	log "github.com/sirupsen/logrus"
 
-	resty "gopkg.in/resty.v1"
+	resty "github.com/go-resty/resty/v2"
 )
 
 // SceneActionCommand are the commands to be used in an action
@@ -104,9 +104,8 @@ func requestGet(cfg FibaroConfig, cmd string) (resp *resty.Response, err error) 
 	encoded := "Basic " + base64.StdEncoding.EncodeToString([]byte(msg))
 	log.Tracef("msg: %s\n", msg)
 	log.Tracef("encoded: %s\n", encoded)
-
-	resp, err = resty.R().
-		SetHeader("Accept", "application/json").
+	client := resty.New()
+	resp, err = client.R().
 		SetHeader("Authorization", encoded).
 		Get(cfg.BaseURL + "/api" + cmd)
 	return
@@ -117,7 +116,8 @@ func requestPut(cfg FibaroConfig, cmd string, body []byte) (resp *resty.Response
 	encoded := "Basic " + base64.StdEncoding.EncodeToString([]byte(msg))
 
 	log.Traceln(string(body))
-	resp, err = resty.R().
+	client := resty.New()
+	resp, err = client.R().
 		SetHeader("Accept", "application/json").
 		SetHeader("Authorization", encoded).
 		SetBody(body).
@@ -129,8 +129,9 @@ func requestPut(cfg FibaroConfig, cmd string, body []byte) (resp *resty.Response
 func requestPost(cfg FibaroConfig, cmd string, body []byte) (resp *resty.Response, err error) {
 	msg := cfg.Username + ":" + cfg.Password
 	encoded := "Basic " + base64.StdEncoding.EncodeToString([]byte(msg))
+	client := resty.New()
 
-	resp, err = resty.R().
+	resp, err = client.R().
 		SetHeader("Accept", "application/json").
 		SetHeader("Authorization", encoded).
 		SetBody(body).
@@ -174,6 +175,21 @@ func (f *FibaroHc2) AllScenes() []Hc2Scene {
 	json.Unmarshal(resp.Body(), &s)
 	if err != nil {
 		log.Errorln("Error while decoding hc2scenes: ", err)
+		return nil
+	}
+	return s
+}
+
+// AllDevices downloads and returns all scenes of the FibaroHC2 system.
+// nil will be returned in case an error occured while downloading the
+// scenes.
+func (f *FibaroHc2) AllDevices() []Hc2Device {
+	log.Tracef("Calling at %v/devices\n", f.cfg.BaseURL)
+	resp, err := requestGet(f.cfg, "/devices")
+	var s []Hc2Device
+	json.Unmarshal(resp.Body(), &s)
+	if err != nil {
+		log.Errorln("Error while decoding hc2devices ", err)
 		return nil
 	}
 	return s
