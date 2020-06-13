@@ -10,9 +10,8 @@ import (
 	"strconv"
 	"strings"
 
-	log "github.com/sirupsen/logrus"
-
 	resty "github.com/go-resty/resty/v2"
+	log "github.com/sirupsen/logrus"
 )
 
 // SceneActionCommand are the commands to be used in an action
@@ -190,6 +189,18 @@ func (f *FibaroHc2) AllDevices() []Hc2Device {
 	json.Unmarshal(resp.Body(), &s)
 	if err != nil {
 		log.Errorln("Error while decoding hc2devices ", err)
+		return nil
+	}
+	return s
+}
+
+func (f *FibaroHc2) OneDevice(deviceId int) *Hc2Device {
+	log.Tracef("Calling at %v/devices/&d\n", f.cfg.BaseURL, deviceId)
+	resp, err := requestGet(f.cfg, "/devices/"+strconv.Itoa(deviceId))
+	s := &Hc2Device{}
+	json.Unmarshal(resp.Body(), &s)
+	if err != nil {
+		log.Errorln("Error while decoding hc2device ", err)
 		return nil
 	}
 	return s

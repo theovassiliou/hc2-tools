@@ -1,0 +1,6 @@
+Here are the current settings for {{.Name}} ({{.ID}}) in room {{.RoomID}}
+    The on status: on = {{.Properties.On}}
+    Brigthness: bri = {{.GetValue "bri"}}
+    Saturation: sat = {{.GetValue "sat"}}
+    Hue: hue = {{.GetValue "hue"}}
+    Contrast: ct = {{.GetValue "ct"}}
