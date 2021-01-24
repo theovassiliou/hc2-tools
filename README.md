@@ -30,7 +30,7 @@ If you would like to learn about more about the technology in the background tak
 
 ## Installation From Source
 
-hc2-tools requires golang version 1.3 or newer, the Makefile requires GNU make.
+hc2-tools requires golang version 1.13 or newer, the Makefile requires GNU make.
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
