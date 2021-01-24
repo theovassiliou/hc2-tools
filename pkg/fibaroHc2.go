@@ -78,6 +78,7 @@ func NewFibaroHc2Config(file string) *FibaroHc2 {
 // Default defines the default values for possible configuration file fields
 func Default(fc *FibaroConfig) {
 	fc.CreateHeader = true
+	fc.client = resty.New()
 }
 
 // Config returns the configuration of the Fibaro system
@@ -96,14 +97,14 @@ type FibaroConfig struct {
 	Username     string `json:"username"`
 	Password     string `json:"password"`
 	CreateHeader bool   `json:"createHeader"`
+	client       *resty.Client
 }
 
 func requestGet(cfg FibaroConfig, cmd string) (resp *resty.Response, err error) {
 	msg := cfg.Username + ":" + cfg.Password
 	encoded := "Basic " + base64.StdEncoding.EncodeToString([]byte(msg))
-	log.Tracef("msg: %s\n", msg)
-	log.Tracef("encoded: %s\n", encoded)
-	client := resty.New()
+	client := cfg.client
+
 	resp, err = client.R().
 		SetHeader("Authorization", encoded).
 		Get(cfg.BaseURL + "/api" + cmd)
@@ -115,7 +116,7 @@ func requestPut(cfg FibaroConfig, cmd string, body []byte) (resp *resty.Response
 	encoded := "Basic " + base64.StdEncoding.EncodeToString([]byte(msg))
 
 	log.Traceln(string(body))
-	client := resty.New()
+	client := cfg.client
 	resp, err = client.R().
 		SetHeader("Accept", "application/json").
 		SetHeader("Authorization", encoded).
@@ -128,7 +129,7 @@ func requestPut(cfg FibaroConfig, cmd string, body []byte) (resp *resty.Response
 func requestPost(cfg FibaroConfig, cmd string, body []byte) (resp *resty.Response, err error) {
 	msg := cfg.Username + ":" + cfg.Password
 	encoded := "Basic " + base64.StdEncoding.EncodeToString([]byte(msg))
-	client := resty.New()
+	client := cfg.client
 
 	resp, err = client.R().
 		SetHeader("Accept", "application/json").
@@ -195,7 +196,7 @@ func (f *FibaroHc2) AllDevices() []Hc2Device {
 }
 
 func (f *FibaroHc2) OneDevice(deviceId int) *Hc2Device {
-	log.Tracef("Calling at %v/devices/&d\n", f.cfg.BaseURL, deviceId)
+	log.Tracef("Calling at %v/devices/%d\n", f.cfg.BaseURL, deviceId)
 	resp, err := requestGet(f.cfg, "/devices/"+strconv.Itoa(deviceId))
 	s := &Hc2Device{}
 	json.Unmarshal(resp.Body(), &s)
