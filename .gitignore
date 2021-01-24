@@ -1,3 +1,4 @@
+config.json
 configs/config.json
 .vscode/launch.json
 vendor/*
