@@ -7,3 +7,7 @@ download/*
 hc2DownloadScene
 hc2SceneInteract
 hc2UploadScene
+
+!hc2DownloadScene/README.md
+!hc2SceneInteract/README.md
+!hc2UploadScene/README.md
