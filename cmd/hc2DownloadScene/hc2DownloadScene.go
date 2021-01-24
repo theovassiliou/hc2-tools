@@ -115,12 +115,15 @@ func main() {
 
 	if conf.SceneID == -1 {
 		allScenes := f.AllScenes()
+		log.Infof("Processing %d scenes\n", len(allScenes))
 
 		var bytesWrote int
 		var filesCreated int
 
-		for _, aScene := range allScenes {
-			bytesWrote += writeFile(f, conf.Dir, f.OneScene(aScene.SceneID))
+		for i, aScene := range allScenes {
+			amountOfBytes := writeFile(f, conf.Dir, f.OneScene(aScene.SceneID))
+			log.Debugf("%d: Wrote %d:%s \n", i, aScene.SceneID, aScene.Name)
+			bytesWrote += amountOfBytes
 			filesCreated++
 		}
 
@@ -152,21 +155,25 @@ func writeFile(fib *hc2.FibaroHc2, baseDir string, scene hc2.Hc2Scene) (bytesWro
 	i := 0
 	// check whether it exists and create a unique if yes
 	e, err := os.Open(file)
+	defer e.Close()
+
 	for err == nil {
-		e.Close()
+		log.Debugf("   File %s exists. Creating new fileName", file)
 		file = filepath.Join(path, scene.Name+"_"+strconv.Itoa(i)+".lua")
 		e, err = os.Open(file)
+		defer e.Close()
 		i++
 	}
 
 	f, err := os.Create(file)
+	defer f.Close()
+
 	if err != nil {
 		log.Printf("Problem creating file %s; %v", file, err)
 		return 0
 	}
 
 	check(err)
-	defer f.Close()
 	w := bufio.NewWriter(f)
 	n4, err := w.WriteString(scene.Lua + "\n")
 	check(err)
