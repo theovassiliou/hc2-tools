@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
-	"strings"
 	"text/template"
 
 	"github.com/jpillora/opts"
@@ -14,13 +13,12 @@ import (
 )
 
 //set this via ldflags (see https://stackoverflow.com/q/11354518)
-const pVersion = ".1"
-
 // version is the current version number as tagged via git tag 1.0.0 -m 'A message'
 var (
-	version = "1.0" + pVersion + "-src"
+	version = hc2.Version
 	commit  string
 	branch  string
+	cmdName = "hc2Tools"
 )
 
 type config struct {
@@ -185,7 +183,7 @@ func main() {
 		Summary(shortUsage).
 		PkgRepo().
 		UserConfigPath().
-		Version(formatFullVersion("hc2Tools", version, branch, commit)).
+		Version(hc2.FormatFullVersion(cmdName, version, branch, commit)).
 		AddCommand(
 			opts.New(&devices{}).
 				Summary(devicesUsage)).
@@ -249,27 +247,4 @@ func parsedTemplate(name, filename string) *template.Template {
 		log.Panic(err)
 	}
 	return pVslTemplate
-}
-
-func formatFullVersion(cmdName, version, branch, commit string) string {
-	var parts = []string{cmdName}
-
-	if version != "" {
-		parts = append(parts, version)
-	} else {
-		parts = append(parts, "unknown")
-	}
-
-	if branch != "" || commit != "" {
-		if branch == "" {
-			branch = "unknown"
-		}
-		if commit == "" {
-			commit = "unknown"
-		}
-		git := fmt.Sprintf("(git: %s %s)", branch, commit)
-		parts = append(parts, git)
-	}
-
-	return strings.Join(parts, " ")
 }
