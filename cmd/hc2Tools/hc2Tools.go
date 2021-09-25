@@ -209,6 +209,7 @@ func main() {
 		Password: conf.Password,
 		BaseURL:  conf.URL,
 	}
+	hc2.Default(&hcConfig)
 
 	f = &hc2.FibaroHc2{}
 	f.SetConfig(hcConfig)

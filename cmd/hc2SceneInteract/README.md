@@ -1,6 +1,6 @@
 # hc2SceneInteract
 
-Start, top, enable or disable scenes in the Fibaro HC2 system. In addition you can retrieve the debug messages for an executing scene of the Fibaro HC2 system.
+Start, stop, enable or disable scenes in the Fibaro HC2 system. In addition, you can retrieve the debug messages for an executing scene of the Fibaro HC2 system.
 
 It is a powerful tool intended to create a round-trip workflow. Plays together with hc2UploadScene and hc2DownloadScene commands.
 

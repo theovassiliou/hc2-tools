@@ -129,6 +129,10 @@ clean:
 	rm -f ./hc2UploadScene
 	rm -f ./hc2DownloadScene
 	rm -f ./hc2SceneInteract
+	rm -f $(DESTDIR)$(PREFIX)/bin/hc2UploadScene
+	rm -f $(DESTDIR)$(PREFIX)/bin/hc2DownloadScene
+	rm -f $(DESTDIR)$(PREFIX)/bin/hc2SceneInteract
+	
 
 .PHONY: docker-image
 
