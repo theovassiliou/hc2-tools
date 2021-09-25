@@ -1,3 +1,4 @@
+config.json
 configs/config.json
 .vscode/launch.json
 vendor/*
@@ -7,3 +8,10 @@ download/*
 hc2DownloadScene
 hc2SceneInteract
 hc2UploadScene
+hc2Tools
+
+!hc2DownloadScene/README.md
+!hc2SceneInteract/README.md
+!hc2UploadScene/README.md
+!hc2Tools/README.md
+hc2-tools-config

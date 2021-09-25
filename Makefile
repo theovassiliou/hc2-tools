@@ -56,6 +56,7 @@ hc2:
 	go build -ldflags "$(LDFLAGS)" ./cmd/hc2UploadScene
 	go build -ldflags "$(LDFLAGS)" ./cmd/hc2DownloadScene
 	go build -ldflags "$(LDFLAGS)" ./cmd/hc2SceneInteract
+	go build -ldflags "$(LDFLAGS)" ./cmd/hc2Tools
 
 
 .PHONY: go-install
@@ -63,6 +64,8 @@ go-install:
 	go install -ldflags "-w -s $(LDFLAGS)" ./cmd/hc2UploadScene
 	go install -ldflags "-w -s $(LDFLAGS)" ./cmd/hc2DownloadScene
 	go install -ldflags "-w -s $(LDFLAGS)" ./cmd/hc2SceneInteract
+	go install -ldflags "-w -s $(LDFLAGS)" ./cmd/hc2Tools
+
 
 .PHONY: install
 install: hc2
@@ -70,6 +73,7 @@ install: hc2
 	cp hc2UploadScene $(DESTDIR)$(PREFIX)/bin/
 	cp hc2DownloadScene $(DESTDIR)$(PREFIX)/bin/
 	cp hc2SceneInteract $(DESTDIR)$(PREFIX)/bin/
+	cp hc2Tools $(DESTDIR)$(PREFIX)/bin/
 
 .PHONY: test
 test:
@@ -126,9 +130,15 @@ clean:
 	rm -f $(GOPATH)/bin/hc2DownloadScene.exe
 	rm -f $(GOPATH)/bin/hc2SceneInteract
 	rm -f $(GOPATH)/bin/hc2SceneInteract.exe
+	rm -f $(GOPATH)/bin/hc2Tools
+	rm -f $(GOPATH)/bin/hc2Tools.exe
 	rm -f ./hc2UploadScene
 	rm -f ./hc2DownloadScene
 	rm -f ./hc2SceneInteract
+	rm -f $(DESTDIR)$(PREFIX)/bin/hc2UploadScene
+	rm -f $(DESTDIR)$(PREFIX)/bin/hc2DownloadScene
+	rm -f $(DESTDIR)$(PREFIX)/bin/hc2SceneInteract
+	rm -f ./hc2Tools	
 
 .PHONY: docker-image
 
@@ -152,3 +162,8 @@ static:
 	GOARCH=amd64 \
 	go build -ldflags "$(LDFLAGS)" ./cmd/hc2SceneInteract
 
+	@echo "Building static linux binary hc2Tools"
+	@CGO_ENABLED=0 \
+	GOOS=linux \
+	GOARCH=amd64 \
+	go build -ldflags "$(LDFLAGS)" ./cmd/hcTools

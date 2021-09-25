@@ -9,15 +9,14 @@ import (
 	"testing"
 
 	"github.com/jarcoal/httpmock"
-	resty "gopkg.in/resty.v1"
 )
 
 const ConfigFileName string = "../configs/configTest.json"
 
 func TestFibaroHc2_OneScene(t *testing.T) {
-	httpmock.ActivateNonDefault(resty.DefaultClient.GetClient())
-	defer httpmock.DeactivateAndReset()
 	cfg := NewFibaroHc2Config(ConfigFileName).Config()
+	httpmock.ActivateNonDefault(cfg.client.GetClient())
+	defer httpmock.DeactivateAndReset()
 
 	type args struct {
 		sceneID      int
@@ -101,14 +100,14 @@ func TestFibaroHc2_OneScene(t *testing.T) {
 }
 
 func testFibaroHc2OneSceneParametrized(t *testing.T) {
-	httpmock.ActivateNonDefault(resty.DefaultClient.GetClient())
+	configuration := NewFibaroHc2Config(ConfigFileName).Config()
+	httpmock.ActivateNonDefault(configuration.client.GetClient())
 	defer httpmock.DeactivateAndReset()
 
 	fixture, _ := ioutil.ReadFile("../test/scene55.json")
 	responder := httpmock.NewBytesResponder(200, fixture)
 	httpmock.RegisterResponder("GET", "http://192.10.66.55/api/scenes/55", responder)
 
-	configuration := NewFibaroHc2Config(ConfigFileName).Config()
 	f := &FibaroHc2{
 		cfg: *configuration,
 	}
@@ -119,14 +118,14 @@ func testFibaroHc2OneSceneParametrized(t *testing.T) {
 }
 
 func testFibaroHc2OneSceneParametrized2(t *testing.T) {
-	httpmock.ActivateNonDefault(resty.DefaultClient.GetClient())
+	configuration := NewFibaroHc2Config(ConfigFileName).Config()
+	httpmock.ActivateNonDefault(configuration.client.GetClient())
 	defer httpmock.DeactivateAndReset()
 
 	fixture, _ := ioutil.ReadFile("../test/scene105NoHeader.json")
 	responder := httpmock.NewBytesResponder(200, fixture)
 	httpmock.RegisterResponder("GET", "http://192.10.66.55/api/scenes/105", responder)
 
-	configuration := NewFibaroHc2Config(ConfigFileName).Config()
 	f := &FibaroHc2{
 		cfg: *configuration,
 	}
@@ -137,9 +136,9 @@ func testFibaroHc2OneSceneParametrized2(t *testing.T) {
 }
 
 func TestFibaroHc2_AllScenes(t *testing.T) {
-	httpmock.ActivateNonDefault(resty.DefaultClient.GetClient())
-	defer httpmock.DeactivateAndReset()
 	cfg := NewFibaroHc2Config(ConfigFileName).Config()
+	httpmock.ActivateNonDefault(cfg.client.GetClient())
+	defer httpmock.DeactivateAndReset()
 
 	fixture, _ := ioutil.ReadFile("../test/scenes.json")
 	responder := httpmock.NewBytesResponder(200, fixture)
@@ -163,9 +162,9 @@ func TestFibaroHc2_AllScenes(t *testing.T) {
 }
 
 func TestFibaroHc2_OneRoom(t *testing.T) {
-	httpmock.ActivateNonDefault(resty.DefaultClient.GetClient())
-	defer httpmock.DeactivateAndReset()
 	cfg := NewFibaroHc2Config(ConfigFileName).Config()
+	httpmock.ActivateNonDefault(cfg.client.GetClient())
+	defer httpmock.DeactivateAndReset()
 
 	type args struct {
 		roomID       int
@@ -226,9 +225,9 @@ func TestFibaroHc2_OneRoom(t *testing.T) {
 }
 
 func TestFibaroHc2_OneSection(t *testing.T) {
-	httpmock.ActivateNonDefault(resty.DefaultClient.GetClient())
-	defer httpmock.DeactivateAndReset()
 	cfg := NewFibaroHc2Config(ConfigFileName).Config()
+	httpmock.ActivateNonDefault(cfg.client.GetClient())
+	defer httpmock.DeactivateAndReset()
 
 	type args struct {
 		sectionID    int
@@ -288,9 +287,9 @@ func TestFibaroHc2_OneSection(t *testing.T) {
 }
 
 func TestFibaroHc2_PutOneScene(t *testing.T) {
-	httpmock.ActivateNonDefault(resty.DefaultClient.GetClient())
-	defer httpmock.DeactivateAndReset()
 	cfg := NewFibaroHc2Config(ConfigFileName).Config()
+	httpmock.ActivateNonDefault(cfg.client.GetClient())
+	defer httpmock.DeactivateAndReset()
 
 	type args struct {
 		sceneFile string
@@ -368,9 +367,10 @@ func TestFibaroHc2_SetConfig(t *testing.T) {
 }
 
 func TestOneSceneAndUpdate(t *testing.T) {
-	httpmock.ActivateNonDefault(resty.DefaultClient.GetClient())
-	defer httpmock.DeactivateAndReset()
 	cfg := NewFibaroHc2Config(ConfigFileName).Config()
+	httpmock.ActivateNonDefault(cfg.client.GetClient())
+	defer httpmock.DeactivateAndReset()
+
 	fixture, _ := ioutil.ReadFile("../test/scene55InvHeader.json")
 	responder := httpmock.NewBytesResponder(200, fixture)
 	httpmock.RegisterResponder(http.MethodGet, "http://192.10.66.55/api/scenes/55", responder)
@@ -392,11 +392,10 @@ func TestOneSceneAndUpdate(t *testing.T) {
 }
 
 func TestCreateNewFile(t *testing.T) {
-	// cfg := NewFibaroHc2Config("../configs/config.json").Config()
-	httpmock.ActivateNonDefault(resty.DefaultClient.GetClient())
-	defer httpmock.DeactivateAndReset()
-	// We have a configuration
 	cfg := NewFibaroHc2Config(ConfigFileName).Config()
+	httpmock.ActivateNonDefault(cfg.client.GetClient())
+	defer httpmock.DeactivateAndReset()
+
 	fixture, _ := ioutil.ReadFile("../test/postSceneResponse.json")
 	responderPost := httpmock.NewBytesResponder(200, fixture)
 	responderPut := httpmock.NewBytesResponder(200, []byte(""))

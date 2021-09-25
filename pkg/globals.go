@@ -13,7 +13,7 @@ const (
 	RepoName string = "github.com/theovassiliou/hc2-tools"
 
 	// Version contains the actuall version number. Might be replaces using the LDFLAGS.
-	Version = "0.9.0-src"
+	Version = "1.1.0-src"
 )
 
 // FormatFullVersion formats for a cmdName the version number based on version, branch and commit

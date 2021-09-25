@@ -1,0 +1,6 @@
+{{.Name}} ({{.ID}}) in room {{.RoomID}}
+    Switched on = {{.Properties.On}}
+    dimLvl = {{.GetValue "bri"}}
+    VDdefaultColor = {{.GetValue "hue"}}
+    VDdefaultSaturation = {{.GetValue "sat"}}
+    VDdefaultColorTemp = {{.GetValue "ct"}}

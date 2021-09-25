@@ -58,18 +58,16 @@ targets = {
 supported_builds = {
     'darwin': [ "amd64" ],
     "windows": [ "amd64", "i386" ],
-    "linux": [ "amd64", "i386", "armhf", "armel", "arm64", "static_amd64", "s390x", "mipsel", "mips"],
-    "freebsd": [ "amd64", "i386" ]
+    "linux": [ "amd64", "i386", "arm64", "static_amd64"]
 }
 
 supported_packages = {
     "darwin": [ "tar" ],
     "linux": [  "tar" ],
-    "windows": [ "zip" ],
-    "freebsd": [ "tar" ]
+    "windows": [ "zip" ]
 }
 
-next_version = '1.0.0'
+next_version = '1.2.0'
 
 ################
 #### hc2-tools Functions

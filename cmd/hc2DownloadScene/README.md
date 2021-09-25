@@ -75,3 +75,4 @@ The file has the following structure
 ```
 
 Please note that you do not have to use the admin user, but any user who has access to desired scenes.
+...
