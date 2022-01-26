@@ -2,12 +2,12 @@
 
 hc2-tools, implemented in go (golang) provides tools to, upload, download and interact with scene on Fibaro HC2 system.
 
-The design goal of the tools where to be easily integrable into IDEs like Visual Studio Code (VSC) or others, to enable comfortable Fibaro Lua script development, testing and deployment.
-While there can be very different applications on how to use the tools, [USAGE.md](USAGE.md) has examples on how the development workflow can be enhanced by using the hc2-tools.
+The design goal of each tool was to be easily integrable into IDEs like Visual Studio Code (VSC) or others, to enable comfortable Fibaro Lua script development, testing and deployment.
+While there can be very different applications on how to use the tools, [USAGE.md](USAGE.md) has examples of how the development workflow can be enhanced by using the hc2-tools.
 
 It is in public beta; you are free to use it and improve it (do pull requests).
 
-WARNING: THIS SOFTWARE CAN'T BE ERROR FREE, SO USE IT AT YOUR OWN RISK. DON'T USE IT IF YOU HAVEN'T MADE AN ACTUAL BACKUP COPY OF YOUR FIBARO HC2 SYSTEM. IF YOU DO NOT HOW TO DO THIS, PLEASE RECONSIDER TO USE THIS SOFTWARE ANYWAY. I HAVE DONE MY BEST TO MAKE SURE THAT THE TOOLS BEHAVE AS EXPECTED. BUT AGAIN ... USE IT AT YOUR OWN RISK. I AM NOT GIVING ANY KIND OF WARRANTY, NEITHER EXPLICITELY NOR IMPLICITELY.
+WARNING: THIS SOFTWARE CAN'T BE ERROR-FREE, SO USE IT AT YOUR OWN RISK. DON'T USE IT IF YOU HAVEN'T MADE AN ACTUAL BACKUP COPY OF YOUR FIBARO HC2 SYSTEM. IF YOU DO NOT HOW TO DO THIS, PLEASE RECONSIDER USING THIS SOFTWARE ANYWAY. I HAVE DONE MY BEST TO MAKE SURE THAT THE TOOLS BEHAVE AS EXPECTED. BUT AGAIN ... USE IT AT YOUR OWN RISK. I AM NOT GIVING ANY KIND OF WARRANTY, NEITHER EXPLICITLY NOR IMPLICITLY.
 
 ## Installation binaries
 
@@ -19,14 +19,14 @@ hc2-tools need access to your Fibaro HC2 system. You can configure and test your
 
 `hc2DownloadScene -u <fibaroHc2Login> -p <secretPassword> --url http://<ip.address.of.hc2> -i -t`
 
-This tests the connection to your Fibaro HC2 system and creates a config-file in `~/.hc2-tool/*` so that you do not have to reenter the information in subsequent to the hc2-tools calls.
+This tests the connection to your Fibaro HC2 system and creates a config-file in `~/.hc2-tool/*` so that you do not have to reenter the information subsequent to the hc2-tools calls.
 Of course, you have to replace `<fibaroHc2Login>` and `<secretPassword>` with your credentials, and `<ip.address.of.hc2>` with the IP or DNS of your Fibaro HC2 system.
 
-To test the successfull configuration just use
+To test the successful configuration just use
 
-`hc2DownloadScene -t` which should get you the same result as above. All h2-tools use the same configuration file, so you don't have to configure the individually. Actually you could perfom this configuration steps, with any of the tools.
+`hc2DownloadScene -t` which should get you the same result as above. All hc2-tools use the same configuration file, so you don't have to configure them individually. You could perform these configuration steps, with any of the tools.
 
-If you would like to learn about more about the technology in the background take a look at [TECHNOLOGY.md](TECHNOLOGY.md).
+If you would like to learn more about the technology in the background take a look at [TECHNOLOGY.md](TECHNOLOGY.md).
 
 ## Installation From Source
 
@@ -36,7 +36,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-There is no particular requirement beyong the fact that you should have a working go installation.
+There is no particular requirement beyond the fact that you should have a working go installation.
 
 [Install Go](https://golang.org/doc/install) >=1.13
 
@@ -72,7 +72,7 @@ make go-install
 
 to install a copy of the executables into `$GOPATH/bin`
 
-To test whether build integrates with your Fibaro system use
+To test whether the build integrates with your Fibaro system use
 
 ```shell
 hc2DownloadScene -u <fibaroHc2Login> -p <secretPassword> --url http://<ip.address.of.hc2> -i -t
@@ -89,10 +89,10 @@ and logged in as:
   Type:         superuser
 ```
 
-This tests the connection to your Fibaro HC2 system and `-i` creates a config-file in `~/.hc2-tool/*` so that you do not have to reenter the information in subsequent to the hc2-tools calls.
-Of course you have to replace `<fibaroHc2Login>` and `<secretPassword>` with your credentials, and `<ip.address.of.hc2>` with the IP or DNS of your Fibaro HC2 system.
+This tests the connection to your Fibaro HC2 system and `-i` creates a config-file in `~/.hc2-tool/*` so that you do not have to reenter the information after the hc2-tools calls.
+Of course, you have to replace `<fibaroHc2Login>` and `<secretPassword>` with your credentials, and `<ip.address.of.hc2>` with the IP or hostname of your Fibaro HC2 system.
 
-To test the successfull configuration just use
+To test the successful configuration just use
 
 `hc2DownloadScene -t` which should get you the same result as above.
 
@@ -106,7 +106,7 @@ which downloads all scripts on the Fibaro HC2 into the default created directory
 
 ## Running the tests
 
-We are using to different make targets for running tests.
+We are using two different make targets for running tests.
 
 ```shell
 make test
@@ -153,7 +153,7 @@ and logged in as:
   Type:         superuser
 ```
 
-to test whether command can execute correctly.
+to test whether the command can execute correctly.
 
 ## Deployment
 
@@ -202,11 +202,11 @@ Thanks to all the people out there that produce amazing open-source software, wh
 
 ## History
 
-This project has been developed as I was seeking for a way to upload scenes from my favorite development Lua development environment to the Fibaro HC2 system. Finally I came up with the idea to upload a scene whenever I do a `git commit`. For this I needed a cmd line tool can be integrated as `commithook` into the git repository.
+This project has been developed as I was seeking a way to upload scenes from my favorite development Lua development environment to the Fibaro HC2 system. Finally, I came up with the idea to upload a scene whenever I do a `git commit`. For this, I needed a cmd line tool that can be integrated as `commithook` into the git repository.
 
-With this I could solve two problems at a single time.
+With this, I could solve two problems at a single time.
 
 1. Enforcing a version control system, e.g. git
 2. Automatically uploading the modified script
 
-After implementing a first version, new ideas emerged, so for example retrieving debug messages where implemented.
+After implementing the first version, new ideas emerged, so for example retrieving debug messages were implemented.
