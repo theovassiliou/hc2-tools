@@ -170,8 +170,7 @@ func (scene *Hc2Scene) ToComment() string {
 }
 
 func sceneSetString(v *string, k string, i []byte) string {
-	var submatch [][]byte
-	submatch = m[k].FindSubmatch(i)
+	submatch := m[k].FindSubmatch(i)
 	result := ""
 	if len(submatch) > 0 {
 		result = string(submatch[1])
@@ -182,8 +181,7 @@ func sceneSetString(v *string, k string, i []byte) string {
 }
 
 func sceneSetInt(v *int, k string, i []byte) int {
-	var submatch [][]byte
-	submatch = m[k].FindSubmatch(i)
+	submatch := m[k].FindSubmatch(i)
 	result := -1
 	if len(submatch) > 0 {
 		i, _ := strconv.Atoi(string(submatch[1]))
@@ -194,8 +192,7 @@ func sceneSetInt(v *int, k string, i []byte) int {
 }
 
 func sceneSetBool(v *bool, k string, i []byte) bool {
-	var submatch [][]byte
-	submatch = m[k].FindSubmatch(i)
+	submatch := m[k].FindSubmatch(i)
 	result := *v
 	if len(submatch) > 0 {
 		i, _ := strconv.ParseBool(string(submatch[1]))

@@ -42,7 +42,7 @@ func (b *SceneActionCommand) Set(s string) error {
 	case "disable":
 		*b = Disable
 	default:
-		return errors.New("None of start, stop, enable, disable")
+		return errors.New("none of start, stop, enable, disable")
 	}
 	return nil
 }
@@ -58,10 +58,10 @@ type FibaroHc2 struct {
 func NewFibaroHc2Config(file string) *FibaroHc2 {
 
 	configFile, err := os.Open(file)
-	defer configFile.Close()
 	if err != nil {
 		return nil
 	}
+	defer configFile.Close()
 	stat, _ := configFile.Stat()
 	if stat.IsDir() {
 		return nil
@@ -104,11 +104,10 @@ func requestGet(cfg FibaroConfig, cmd string) (resp *resty.Response, err error) 
 	msg := cfg.Username + ":" + cfg.Password
 	encoded := "Basic " + base64.StdEncoding.EncodeToString([]byte(msg))
 	client := cfg.client
-
 	resp, err = client.R().
 		SetHeader("Authorization", encoded).
 		Get(cfg.BaseURL + "/api" + cmd)
-	return
+	return resp, err
 }
 
 func requestPut(cfg FibaroConfig, cmd string, body []byte) (resp *resty.Response, err error) {
@@ -147,7 +146,7 @@ func (f *FibaroHc2) PutOneScene(scene Hc2Scene) (resp *resty.Response, err error
 	// What else ?
 
 	if !scene.SanityCheck() {
-		return nil, fmt.Errorf("Sanity check failed")
+		return nil, fmt.Errorf("sanity check failed")
 
 	}
 
@@ -178,6 +177,39 @@ func (f *FibaroHc2) AllScenes() []Hc2Scene {
 		return nil
 	}
 	return s
+}
+
+// AllGlobalVariables downloads and returns all global variables of the FibaroHC2 system.
+// nil will be returned in case an error occured while downloading the
+// variables.
+func (f *FibaroHc2) AllGlobalVariables() []Hc2GlobalVar {
+	log.Tracef("Calling at %v/globalVariables\n", f.cfg.BaseURL)
+	resp, err := requestGet(*f.Config(), "/globalVariables")
+	var s []Hc2GlobalVar
+	s2 := resp.Body()
+	json.Unmarshal(s2, &s)
+	if err != nil {
+		log.Errorln("Error while decoding Hc2GlobalVar ", err)
+		return nil
+	}
+	return s
+}
+
+// GlobalVariable downloads and returns the named global variable of the FibaroHC2 system.
+// A zero value will be returned in case an error occured while downloading the
+// variable.
+func (f *FibaroHc2) GlobalVariable(s string) Hc2GlobalVar {
+	log.Tracef("Calling at %v/globalVariables/%s\n", f.cfg.BaseURL, s)
+	call := fmt.Sprintf("/globalVariables/%s", s)
+	resp, err := requestGet(*f.Config(), call)
+	var hv Hc2GlobalVar
+	s2 := resp.Body()
+	json.Unmarshal(s2, &hv)
+	if err != nil {
+		log.Errorln("Error while decoding Hc2GlobalVar ", err)
+		return Hc2GlobalVar{}
+	}
+	return hv
 }
 
 // AllDevices downloads and returns all scenes of the FibaroHC2 system.

@@ -27,7 +27,7 @@ type Hc2Device struct {
 }
 type Key struct {
 	KeyAttribute []string `json:"keyAttributes"`
-	KeyId        int      `json:"keyId"`
+	KeyID        int      `json:"keyId"`
 }
 
 func (d Hc2Device) Implements(name string) bool {

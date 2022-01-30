@@ -1,4 +1,4 @@
-GO_VERSION_REQUIRED:=1.13
+GO_VERSION_REQUIRED:=1.17
 
 # Inspired by github.com/influxdata/telegraf
 ifeq ($(OS), Windows_NT)

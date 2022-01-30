@@ -8,7 +8,7 @@ import (
 
 const ip = "192.168.178.49"
 const user = "J9drcGiExAsE6UcTuAnLcAz7h3rctWpGZezT1E16"
-const hueRoomId = "4"
+const hueRoomID = "1"
 
 func main() {
 	bridge := huego.New(ip, user)
@@ -23,13 +23,13 @@ func main() {
 
 	fmt.Printf("--- code snipped for hue scene selection ---\n")
 
-	fmt.Printf("local hueRoomId = %v;\n", hueRoomId)
+	fmt.Printf("local hueRoomId = %v;\n", hueRoomID)
 	fmt.Printf("local ip = \"%v\";\n", ip)
 	fmt.Printf("local user = \"%v\";\n", user)
 
 	fmt.Println("local sceneArray = {")
 	for _, aScene := range scenes {
-		if aScene.Group == hueRoomId {
+		if aScene.Group == hueRoomID {
 			fmt.Printf("    		{name = \"%v\", scene = \"%v\" }, \n", aScene.Name, aScene.ID)
 		}
 	}
